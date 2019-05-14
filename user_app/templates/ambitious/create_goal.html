@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block element %}
+
+  <h3>HELLO THERE</h3>
+  <h5>creating new goals</h5>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+      <h1>Title: </h1>
+      <input type="text" name="goal_title">
+      <br>
+      Description:<textarea type="text" name="goal_text"></textarea>
+      <br>
+
+
+      <h1>Milestone: </h1>
+      Milestone: <input type="text" name="milestone_name_0" value="">
+      Deadline: <input type="date" name="milestone_bday_0">
+      <button type="button" name="button">Add Milestone</button>
+      <div class="milestone_holder">
+        #add js (below)
+      </div>
+
+
+      <input type="submit" value="New Goal">
+
+  </form>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block element %}
+
+<ul>
+  <h3>HELLO THERE</h3>
+  {# trying to render the list of goals #}
+  {{ goal.title }}
+  <!-- {% for goal in goals %}
+    <li>
+      {{goal.text}}
+        <ul>
+          {% for milestone in milestones %}
+            <li>
+              {{milestone.text}}
+            </li>
+          {% endfor %}
+        </ul>
+    </li>
+  {% endfor %}
+  {{milestones.text}} -->
+</ul>
+
+{% endblock %}

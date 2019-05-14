@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block element %}
+  <h3>Register.html file</h3>
+
+  <h5>localhost:8000/register</h5>
+
+
+  <div class="content-section">
+    <form method="post">
+      {% csrf_token %}
+        <fieldset class="form-group">
+          <legend class="corder-bottom mb-4">Join Today</legend>
+          {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+          <button class="btn btn-outline-info" type="submit" name="button">Sign Up</button>
+        </div>
+    </form>
+    <div class="border-top pt-3">
+      <small class="text-muted">
+        Already have an account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+      </small>
+    </div>
+  </div>
+{% endblock %}
