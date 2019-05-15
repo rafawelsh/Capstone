@@ -8,28 +8,27 @@ from rest_framework import viewsets
 from .serializers import GoalSerializer, MilestoneSerializer
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-
 # import json
 
-#
-# # Views for Django Rest Framework
-# class GoalViewSet(viewsets.ModelViewSet):
-#     serializer_class = GoalSerializer
-#
-#     def get_queryset(self):
-#         return Goal.objects.filter(owner=self.request.user)
-#
-#     # def perform_create(self, serializer):
-#     #     return todo
-#
-# class MilestoneViewSet(viewsets.ModelViewSet):
-#     serializer_class = MilestoneSerializer
-#
-#     def get_queryset(self):
-#         return Milestone.objects.filter(owner=self.request.user)
-#
-#     def perform_create(self):
-#         return todo
+# Views for Django Rest Framework
+class GoalViewSet(viewsets.ModelViewSet):
+    serializer_class = GoalSerializer
+
+    def get_queryset(self):
+        return Goal.objects.filter(owner=self.request.user)
+
+    # def perform_create(self, serializer):
+    #     return Goal
+
+class MilestoneViewSet(viewsets.ModelViewSet):
+    serializer_class = MilestoneSerializer
+
+    def get_queryset(self):
+        return Milestone.objects.filter(goal_parent__owner=self.request.user)
+
+    def perform_create(self, serializer):
+        return serializer.save(goal_parent__owner=self.request.user)
+
 
 #Views for Misc folder#
 def home(request):
@@ -37,7 +36,6 @@ def home(request):
 
 def about(request):
     return render(request, 'misc/about.html')
-
 
 
 #Views for ambitious folder#
