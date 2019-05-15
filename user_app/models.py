@@ -1,18 +1,14 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
-from django.contrib.auth.models import AbstractUser, User
+from django.contrib.auth.models import User
 
 def user_image_uh(instance, filename):
     return "users/{}/profile_image/{}".format(instance.username, filename)
 
-# class User(AbstractUser):
-#     phone_number = models.CharField(max_length=50)
-#     profile_bio = models.TextField(max_length=300, blank=True, null=True)
-#     image = models.ImageField(upload_to=user_image_uh, blank=True, null=True)
 
 class Goal(models.Model):
-    # owner = models.ForeignKey(User, related_name='Goals', on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, related_name='Goals', on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     text = models.TextField(max_length=500)
     completed = models.BooleanField(default=False)
@@ -45,8 +41,7 @@ class Goal(models.Model):
         ordering = ['-pk']
 
 class Milestone(models.Model):
-    # goal_parent = ForeignKey()
-    goal_parent = models.ForeignKey('Goal', on_delete=models.CASCADE)
+    goal_parent = models.ForeignKey('Goal', on_delete=models.CASCADE, related_name='milestones')
     text = models.CharField(max_length=100)
     created_date = models.DateTimeField(default=timezone.now)
     completed_date = models.DateField(null=True, blank=True)

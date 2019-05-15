@@ -7,19 +7,29 @@ from .forms import UserRegisterForm
 from rest_framework import viewsets
 from .serializers import GoalSerializer, MilestoneSerializer
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
 # import json
 
-
-# Views for Django Rest Framework
-class GoalViewSet(viewsets.ModelViewSet):
-    serializer_class = GoalSerializer
-
-    def get_queryset(self):
-        return Goal.objects.filter(user=self.request.user)
-
-    def perform_create(self):
-        return todo
+#
+# # Views for Django Rest Framework
+# class GoalViewSet(viewsets.ModelViewSet):
+#     serializer_class = GoalSerializer
+#
+#     def get_queryset(self):
+#         return Goal.objects.filter(owner=self.request.user)
+#
+#     # def perform_create(self, serializer):
+#     #     return todo
+#
+# class MilestoneViewSet(viewsets.ModelViewSet):
+#     serializer_class = MilestoneSerializer
+#
+#     def get_queryset(self):
+#         return Milestone.objects.filter(owner=self.request.user)
+#
+#     def perform_create(self):
+#         return todo
 
 #Views for Misc folder#
 def home(request):
@@ -31,8 +41,10 @@ def about(request):
 
 
 #Views for ambitious folder#
+@login_required
 def goals_home(request):
-    goals = Goal.objects.all()
+    #filter by user to have user only goals.
+    goals = Goal.objects.filter(owner=request.user)
     milestones = Milestone.objects.all()
     # goal = Goal(text='testing with subtasks')
     # subtasks = ['1', '2', '3']
@@ -43,17 +55,20 @@ def goals_home(request):
     return render(request, "ambitious/goals_homepage.html", {'goals': goals, 'milestones':milestones})
     # return render(request, "ambitious/goals_homepage.html")
 
+@login_required
 def goals_single_view(request, goals_slug):
     goal = Goal.objects.get(slug=goals_slug)
     milestones = Milestone.objects.all()
     return render(request, "ambitious/goals_single_view.html", {'goal': goal, 'milestones':milestones})
 
+@login_required
 def create_goal(request):
     if request.method == 'POST':
         goal = Goal()
-
         goal.title = request.POST.get('goal_title')
         goal.text = request.POST.get('goal_text')
+        goal.owner = request.user
+        # goal = Goal(owner=request.user, title='goal_title', text='goal_text')
         goal.save()
 
         milestones = 0
@@ -63,6 +78,7 @@ def create_goal(request):
 
         for i in range(milestones):
             milestone = Milestone()
+            milestone.goal_parent = goal
             milestone.text = request.POST.get('milestone_name_{}'.format(i))
             milestone.deadline = request.POST.get('milestone_bday_{}'.format(i))
             milestone.save()

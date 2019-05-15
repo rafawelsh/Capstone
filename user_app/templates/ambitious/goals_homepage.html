@@ -6,22 +6,23 @@
   <h3>HELLO THERE</h3>
   {# trying to render the list of goals #}
   <ul>
-  {% for goal in goals %}
-
-    <li>
-      {{goal.title}}
-        <a href="{% url 'ambitious:goals_view' goal.slug %}">{{goal.title}}</a>
-        <ul>
-          {% for milestone in milestones %}
-            {% if milestone.goal_parent.title == goal.title %}
-              <li>
-                {{milestone.text}}
-              </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-    </li>
-  {% endfor %}
-</ul>
+    {% for goal in goals %}
+      <li>
+        {{goal.title}}
+          <a href="{% url 'ambitious:goals_view' goal.slug %}">{{goal.title}}</a>
+          <ul>
+            {% for milestone in milestones %}
+              {% if milestone.goal_parent.title == goal.title %}
+                <li>
+                  {{milestone.text}}
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+      </li>
+    {% endfor %}
+  </ul>
+  <hr>  
+  <p>create a new goal <a href="{% url 'ambitious:create_goal' %}">HERE</a></p>
 
 {% endblock %}
