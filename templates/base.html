@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/user_app.css' %}">
-
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
     <title>{% block title %}AmbitioUs{% endblock %}</title>
   </head>
   <body>
@@ -59,7 +60,9 @@
       </div>
       {% endfor %}
     {% endif %}
-    {% block element %}
-    {% endblock %}
+
+    {% block element %}{% endblock %}
+
+    {% block js_body %}{% endblock js_body %}
   </body>
 </html>

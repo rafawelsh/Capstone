@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block element %}
-<h3>Home.html file</h3>
+  <h3>Home.html file</h3>
+  <h5>localhost:8000</h5>
 
-<h5>localhost:8000</h5>
+  <div id='app'>
 
-{% endblock %}
+  </div>
+{% endblock element%}
+
+{% block js_body %}
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+{% endblock js_body%}
