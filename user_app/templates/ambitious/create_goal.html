@@ -1,33 +1,44 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block element %}
 
-  <h3>HELLO THERE</h3>
-  <h5>creating new goals</h5>
+  <div id='createGoals'>
 
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
+      <form @submit="createGoal">
+        <h3>Goal</h3>
+        <p>
+          <label for="goal_title">Goal:</label>
+          <input id="goal_title" v-model="goal_title" type="text" name="goal_title" placeholder="Title">
+        </p>
+        <p>
+          <label for="goal_text">What is this goal?:</label>
+          <textarea id="goal_text" v-model="goal_text" type="text" name="goal_text" placeholder="About the Goal"></textarea>
+        </p>
 
-      <h1>Title: </h1>
-      <input type="text" name="goal_title">
-      <br>
-      Description:<textarea type="text" name="goal_text"></textarea>
-      <br>
-      <!-- Need a slug?
-      Need Owner? -->
+        <h3>Milestones</h3>
+        <p>
+          <label for="milestone_name">Milestones:</label>
+          <input id="milestone_name" v-model="milestone_name" type="text" name="milestone_name" placeholder="milestone"></input>
+        </p>
 
-      <h1>Milestone: </h1>
-      Milestone: <input type="text" name="milestone_name_0" value="">
-      Deadline: <input type="date" name="milestone_bday_0">
-      <button type="button" name="button">Add Milestone</button>
-      <!-- Need to add goal parent? -->
+        <p>
+          <label for="milestone_bday">Deadline:</label>
+          <input id="milestone_bday" v-model="milestone_bday" type="date" name="milestone_bday">
+        </p>
+        <button type="button" name="button" @click='addMilestone'>Add Milestone</button>
 
-      <div class="milestone_holder">
-        #add js (below)
-      </div>
+        <p>
+          <input type="submit" value="Submit">
+        </p>
+      </form>
 
+  </div>
 
-      <input type="submit" value="New Goal">
+{% endblock element %}
 
-  </form>
-{% endblock %}
+{% block js_body %}
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="{% static 'js/createGoals.js' %}"></script>
+{% endblock js_body %}

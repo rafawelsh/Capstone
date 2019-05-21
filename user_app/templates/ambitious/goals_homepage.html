@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block element %}
 
@@ -22,7 +23,23 @@
       </li>
     {% endfor %}
   </ul>
-  <hr>  
+
+  <div id='renderGoals'>
+    <ul v-for="goal in goals">
+      <li v-text="goal.title"></li>
+          <ul v-for="milestone in goal.milestones">
+            <li v-text="milestone.text">
+            </li>
+          </ul>
+    </ul>
+  </div>
+  <hr>
   <p>create a new goal <a href="{% url 'ambitious:create_goal' %}">HERE</a></p>
 
-{% endblock %}
+{% endblock element%}
+
+{% block js_body %}
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="{% static 'js/goals.js' %}"></script>
+{% endblock js_body %}

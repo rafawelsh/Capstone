@@ -17,8 +17,14 @@ class GoalViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Goal.objects.filter(owner=self.request.user)
 
-    # def perform_create(self, serializer):
-    #     return Goal
+    def perform_create(self, serializer):
+        goal = serializer.save(owner=self.request.user)
+        milestones = self.request.data.get('milestones')
+        for milestone in milestones:
+            ms = Milestone(goal_parent=goal, text=milestone['text'], deadline=milestone['deadline'])
+            ms.save()
+        return goal
+
 
 class MilestoneViewSet(viewsets.ModelViewSet):
     serializer_class = MilestoneSerializer

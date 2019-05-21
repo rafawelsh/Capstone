@@ -35,7 +35,7 @@ class Goal(models.Model):
                 else:
                     checking = False
                 self.slug = slug_title
-        super().save(args, kwargs)
+        super().save(*args, **kwargs)
 
     class Meta:
         ordering = ['-pk']

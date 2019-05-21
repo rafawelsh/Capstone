@@ -2,16 +2,22 @@
 {% load static %}
 
 {% block element %}
-  <h3>Home.html file</h3>
-  <h5>localhost:8000</h5>
-
-  <div id='app'>
-
+  <div class="jumbotron">
+    <div class="container">
+      <p class="lead">Accomplish everything you have wanted to do.</p>
+      <hr class="my-4">
+      <p>Assign yourself the goals you have been meaning to accomplish with solid milestones to capture your progress. Then, find other like minded individuals who will join your journey to improve yourself.</p>
+      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </div>
   </div>
-{% endblock element%}
+
+
+
+
+{% endblock element %}
 
 {% block js_body %}
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="{% static 'js/main.js' %}"></script>
-{% endblock js_body%}
+  <script src="{% static 'js/goals.js' %}"></script>
+{% endblock js_body %}
