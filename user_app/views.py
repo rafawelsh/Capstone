@@ -83,8 +83,8 @@ def create_goal(request):
         for i in range(milestones):
             milestone = Milestone()
             milestone.goal_parent = goal
-            milestone.text = request.POST.get('milestone_name_{}'.format(i))
-            milestone.deadline = request.POST.get('milestone_bday_{}'.format(i))
+            milestone.text = request.POST.get('milestone_name'.format(i))
+            milestone.deadline = request.POST.get('milestone_bday'.format(i))
             milestone.save()
 
         # return HttpResponseRedirect(reverse('ambitious:goals_view', kwargs={'goals_slug':goal.slug}))

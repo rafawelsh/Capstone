@@ -16,4 +16,5 @@ class GoalSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Goal
-        fields = ('owner','goal', 'title', 'text', 'milestones')
+        fields = ('owner','goal', 'title', 'text', 'slug', 'milestones')
+        read_only_fields = ('slug',)

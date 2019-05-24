@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/goals.css' %}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+{% endblock extrahead %}
 {% block element %}
 
   <div id='createGoals'>
@@ -17,28 +20,33 @@
         </p>
 
         <h3>Milestones</h3>
-        <p>
-          <label for="milestone_name">Milestones:</label>
-          <input id="milestone_name" v-model="milestone_name" type="text" name="milestone_name" placeholder="milestone"></input>
-        </p>
+        <ul>
+          <li v-for="(milestone, index) in milestones">
+            <p>
+              <label for="milestone_name">Milestones:</label>
+              <input id="milestone_name" v-model="milestone.text" type="text" name="milestone_name" placeholder="milestone"></input>
+            </p>
 
-        <p>
-          <label for="milestone_bday">Deadline:</label>
-          <input id="milestone_bday" v-model="milestone_bday" type="date" name="milestone_bday">
-        </p>
+            <p>
+              <label for="milestone_bday">Deadline:</label>
+              <input id="milestone_bday" v-model="milestone.deadline" type="date" name="milestone_bday">
+            </p>
+            <button @click="deleteRow(index)">Delete</button>
+            <p>
+          </li>
+        </ul>
         <button type="button" name="button" @click='addMilestone'>Add Milestone</button>
+        <input type="submit" value="Submit">
 
-        <p>
-          <input type="submit" value="Submit">
-        </p>
-      </form>
+
+    </form>
 
   </div>
 
 {% endblock element %}
 
 {% block js_body %}
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="{% static 'js/createGoals.js' %}"></script>
 {% endblock js_body %}

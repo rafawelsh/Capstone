@@ -9,15 +9,11 @@ var createGoals = new Vue({
       goal_title : '',
       goal_text : '',
       milestones: [],
-      milestone_name: '',
-      milestone_bday: ''
     };
-  },
-  mounted: function () {
-
   },
   methods: {
     createGoal: function() {
+      event.preventDefault()
       var params = {
         title: this.goal_title,
         text: this.goal_text,
@@ -40,30 +36,8 @@ var createGoals = new Vue({
       this.milestone_name = ''
       this.milestone_bday = ''
     },
-    // createMilestones: function() {
-    //   for (let milestone of this.milestones) {
-    //
-    //   }
-    //   axios.post("http://localhost:8000/api/milestones/"), params)
-    // }
+    deleteRow(index) {
+      this.milestones.splice(index,1)
+    }
   },
 });
-//
-// var createMilestones = new Vue({
-//   delimeters: "'[[',']]'",
-//   el: '#createMilestones',
-//   data: {
-//     milestone_name_0 : '',
-//     milestone_bday_0 : '',
-//   },
-//
-//   methods: {
-//     createMilestone: function(event) {
-//       event.preventDefault()
-//       axios.post("http://localhost:8000/api/milestones/"), {
-//         text: this.milestone_name_0,
-//         deadline: this.milestone_bday_0
-//       }
-//     }
-//   },
-// });
