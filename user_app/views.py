@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from .models import Goal, Milestone
 from django.urls import reverse
@@ -33,7 +33,9 @@ class MilestoneViewSet(viewsets.ModelViewSet):
         return Milestone.objects.filter(goal_parent__owner=self.request.user)
 
     def perform_create(self, serializer):
-        return serializer.save(goal_parent__owner=self.request.user)
+        parent_id = self.request.data.get('goal_parent')
+        parent = get_object_or_404(Goal, pk=parent_id, owner=self.request.user)
+        return serializer.save(goal_parent=parent)
 
 
 #Views for Misc folder#

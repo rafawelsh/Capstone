@@ -2,24 +2,74 @@
 {% load static %}
 {% block extrahead %}
   <link rel="stylesheet" href="{% static 'css/goals.css' %}">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
 {% endblock extrahead %}
 {% block element %}
 
-  <div class="container">
+
+  <div class="container" id='app'>
+    <!-- Button trigger modal -->
+    <button id="add" type="button"  class="btn btn-primary" data-toggle="modal" data-target="#createGoalModal" data-backdrop="static" data-keyboard="false">
+      Add New Goal
+    </button>
 
 
-
-    <p>create a new goal <a href="{% url 'ambitious:create_goal' %}">HERE</a></p>
     <div id='renderGoals'>
 
+      <!-- Modal -->
+      <div class="modal fade" id="createGoalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New Goal</h5>
+              <button @click="closeNoEdit" type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form @submit="createGoal">
+                  <div class="form-group">
+                    <label for="goal_title">Goal Title</label>
+                    <input id="goal_title" v-model="goal_title" type="text" class="form-control" name="goal_title" placeholder="Title">
+                  </div>
+                  <div class="form-group">
+                    <label for="goal_text">What is this goal?:</label>
+                    <textarea id="goal_text" v-model="goal_text" type="text" class="form-control" name="goal_text" placeholder="About the Goal"></textarea>
+                  </div>
 
+                  <ul class="milestone_list">
+                    <li v-for="(milestone, index) in milestones">
+                      <div class="form-group">
+                        <label for="milestone_name">Milestones</label>
+                        <i v-if="isEditing" @click="deleteMilestone(milestone.id, index)"class="fas fa-times"></i>
+                        <i v-else @click="deleteRow(index)"class="fas fa-minus-square"></i>
+                        <input id="milestone_name" v-model="milestone.text" type="text" class="form-control" name="milestone_name" placeholder="milestone"></input>
+                      </div>
 
+                      <div class="form-group">
+                        <label for="milestone_bday">Deadline of Milestone</label>
+                        <input id="milestone_bday" v-model="milestone.deadline" type="date" class="form-control" name="milestone_bday">
+                      </div>
+                    </li>
+                  </ul>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"name="button" @click='addMilestone'>Add Milestone</button>
+                    <input id="myFormSubmit" type="submit" class="btn btn-primary" value="Submit" @click='closeModal'>
+                  </div>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- List of GOALS AND MILESTONES -->
       <div class='list-group' id='goals' role='tabList'>
         <a v-for='goal in goals'
-          class="list-group-item list-group-item-action"
-          data-toggle="list"
+        class="list-group-item list-group-item-action"
+        data-toggle="list"
           role="tab"
-          v-bind:href="'#'+goal.slug"
+          v-bind:href="'#goal'+goal.id"
           >
             ${goal.title}
 
@@ -28,22 +78,27 @@
       <div class=' container tab-content' id="tabContent">
         <div v-for='goal in goals'
           class="tab-pane tabPane"
-          role="tabpanel"
-          v-bind:id="goal.slug"
+          role="tabpane"
+          v-bind:id="'goal'+goal.id"
           >
             <div id='goalDescription'>
-              <p>Goal Description: ${goal.text}</p>
+              <p>Goal Description <button type="reset" data-toggle="modal" data-target="#createGoalModal" @click='edit' class="btn btn-outline-primary">Edit</button></p>
+
+              <p >${goal.text}</p>
             </div>
             <hr>
-            <ul v-for="milestone in goal.milestones">
+            <ul id="mstext" v-for="milestone in goal.milestones">
               <li>
                 <p>${milestone.text}</p>
                 <p>${milestone.deadline}</p>
               </li>
+            </ul>
+            <button @click='deleteGoal' class="btn btn-danger">Delete Goal</button>
         </div>
       </div>
     </div>
   </div>
+
 {% endblock element%}
 
 {% block js_body %}
@@ -54,30 +109,5 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="{% static 'js/goals.js' %}"></script>
+
 {% endblock js_body %}
-
-{# <ul>
-  {% for goal in goals %}
-    <li>
-      {{goal.title}}
-        <a href="{% url 'ambitious:goals_view' goal.slug %}">{{goal.title}}</a>
-        <ul>
-          {% for milestone in milestones %}
-            {% if milestone.goal_parent.title == goal.title %}
-              <li>
-                {{milestone.text}}
-              </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-    </li>
-  {% endfor %}
-</ul> #}
-
-{# <ul v-for="goal in goals">
-  <li v-text="goal.title"></li>
-      <ul v-for="milestone in goal.milestones">
-        <li v-text="milestone.text">
-        </li>
-      </ul>
-</ul> #}

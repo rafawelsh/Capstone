@@ -2,37 +2,46 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+/* navbar css */
 .navbar-brand {
   font-size: 2em;
   padding-left: 2em;
 }
 
-.nav-item {
+.navbar-nav {
   font-size: 1em;
-  padding-right: 0.8em
+  padding-right: 2em;
 }
 
-.navbar {
-  padding: 0.5em;
+.nav-item {
+  padding-left: .7em;
 }
 
+/* home.html css */
 .jumbotron {
   display: flex;
   align-items: flex-end;
   height: 90%;
   background-image:url('images/frontimage.jpg');
   background-size: cover;
-
 }
 
 .jumbotron .container {
-  width: 70%;
+  width: 75%;
   margin-left: 3.5em;
 }
 
-.jumbotron .lead {
-  margin-bottom: 2em;
+.row{
+  display: flex;
+  align-items: center;
+  margin: 1em;
 }
+
+.lr-one {
+    background: #506C8B;
+    /* color: #EBF1F1; */
+}
+
 
 p {
   color: #red;

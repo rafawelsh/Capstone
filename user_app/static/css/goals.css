@@ -6,24 +6,41 @@
   grid-template-columns: 30% 70%;
 }
 
-#goals a {
-  display: flex;
-
-
+#goals {
+  margin-right: 1em;
 }
 
 #tabContent {
   background-color: #F8F9FA;
   border-radius: 0.3em;
-
 }
 
-#goalDescription {
+#add {
+  margin: 1em 0em;
+}
+
+#goalDescription p {
   display: flex;
-  justify-content: center;
-  font-size: 1.5em
+  justify-content: space-between;
+  font-size: 20px;
 }
 
+#mstext {
+  padding: 2em;
+}
+
+#mstext li {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  font-size: 1.3em
+}
+
+/* modal */
+ul.milestone_list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
 .tabPane ul li{
   display: grid;
   justify-items: center;
