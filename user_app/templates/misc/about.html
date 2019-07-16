@@ -1,8 +1,22 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block extrahead %}
+  <link rel="stylesheet" href="{% static 'css/user_app.css' %}">
+{% endblock extrahead %}
 
 {% block element %}
-<h3>About.html file</h3>
 
-<h5>localhost:8000/about</h5>
+  <div class="container" id="about">
+    <p class="lead">Accomplish everything you have wanted to do.</p>
 
+    <p>This idea originated through the <a href="https://impossiblehq.com/the-impossible-list-is-not-a-bucket-list/">Impossible List</a> created by Joel Runyon. So often we are stuck thinking about how we can improve our lives and stop short from creating a concrete plan. So often we are stuck thinking about how we can improve our lives and stop short from creating a concrete plan. Usually we buy journals and calendars only to fill them up with a month's worth of planning. Most stop here. For the few that continue the journey, they are met with the monotonous checklists and daily grind that short sights the end results. In this process they believe that the capabilities of changing their lives is confined to incremental changes over a huge period of time.</p>
+
+    <p>What the Impossible List inspired me to create is a grand planner where bigger life goals are achieved through solid milestones. To think we can't achieve it all is a mistake. The main reason we fail at these sort of life changes is the lack of long term structure. Writing a book can be looked at as writing 250 pages in one sitting or writing 5 pages for 50 days straight. By creating a course of action, life becomes less terrifying as we know the next stepping stone. </p>
+
+    <p>AmbitioUs is a community of people ready to push forward their list of impossible goals and to finally achieve them. Write a course of plan for your next 1, 5, 10 years with the goals you want to achieve. Then look for other people who may be striving towards similar goals and connect with them. Create groups of users with similar goals and succeed with others. This journey doesn't have to be lonely, find resilience in others!</p>
+
+    <p>This application will not solve all your issue, but it will create a plan through which any is possible as long as you try.</p>
+
+    <a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Start your Goals</a>
+  </div>
 {% endblock %}

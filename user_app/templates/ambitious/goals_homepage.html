@@ -90,7 +90,7 @@
             <ul id="mstext" v-for="milestone in goal.milestones">
               <li>
                 <p>${milestone.text}</p>
-                <p>${milestone.deadline}</p>
+                <p id="msdates">${milestone.deadline}</p>
               </li>
             </ul>
             <button @click='deleteGoal' class="btn btn-danger">Delete Goal</button>

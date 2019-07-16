@@ -100,7 +100,6 @@ $(function() {
         })
       },
       deleteMilestone: function(id, index) {
-
         axios.delete(`http://localhost:8000/api/milestones/${id}`)
         .then(response => {
           console.log(this.event);
@@ -111,6 +110,7 @@ $(function() {
       axios.delete(`http://localhost:8000/api/goals/${this.activeGoal.id}`)
       .then(response => {
         console.log(this.event);
+        this.getGoals()
       });
     },
       // editMilestone: function(event) {
@@ -150,12 +150,14 @@ $(function() {
       deleteRow: function(index) {
         this.milestones.splice(index,1)
       },
+
     },
     computed: {
       activeGoal: function() {
         const goal_id = $('#goals > .active').attr('href').slice(1)
         return this.goals.find((goal) => 'goal' + goal.id === goal_id)
       },
+
       // activeMilestone: function() {
       //   const ms_id = $('#tabContent > .active').attr('ul')
       //   return this.milestones.find((milestone) => milestones.id === milestone_id)

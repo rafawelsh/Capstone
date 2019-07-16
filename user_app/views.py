@@ -42,6 +42,7 @@ class MilestoneViewSet(viewsets.ModelViewSet):
 def home(request):
     return render(request, 'misc/home.html')
 
+
 def about(request):
     return render(request, 'misc/about.html')
 
