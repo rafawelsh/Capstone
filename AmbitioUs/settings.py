@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_z)b7_34y+ejap99&4)stl^6kxh@43*&=124&7_r#7@2!b)3@u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1', '.pythonanywhere.com']
+ALLOWED_HOSTS = ['rafawelsh.pythonanywhere.com', 'localhost','127.0.0.1', '.pythonanywhere.com']
 
 
 # Application definition
